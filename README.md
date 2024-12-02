@@ -47,7 +47,7 @@ Lancez le script bash `init.sh` pour  télecharger les données et lancer le con
 
 ```bash
 chmod +x init.sh
-./init.sh
+sudo ./init.sh
 ```
 
 Vérifier que le container est bien lancé en visitant [localhost:7474](http://localhost:7474).
@@ -68,7 +68,16 @@ Installation sur Mac avec Home Brew
 brew install cypher-shell
 ```
 
-La commande `cypher-shell` est importante pour pouvoir éxecuter le script bash fourni, mais n'est pas essentiel, dans le cas ou vous ne pouvez pas l'installer, Il faut executer les commandaes manuellelemnt et  copier coller les contenus des fichiers cypher dans le navigateur de Neo4j dans `localhost:7474` et les éxecuter.
+Installation sur Linux avec APT
+
+```bash
+wget -O - https://debian.neo4j.com/neotechnology.gpg.key | sudo apt-key add -
+echo 'deb https://debian.neo4j.com stable latest' | sudo tee -a /etc/apt/sources.list.d/neo4j.list;sudo add-apt-repository -y ppa:openjdk-r/ppa;
+sudo apt-get update;
+sudo apt-get install neo4j -y;
+``` 
+
+La commande `cypher-shell` est importante pour pouvoir éxecuter le script bash fourni, mais n'est pas essentiel, dans le cas ou vous ne pouvez pas l'installer, Il faut executer les commandaes manuellelemnt et  copier coller les contenus des fichiers cypher dans le navigateur de Neo4j dans [localhost:7474](http://localhost:7474) et les éxecuter.
 
 **Le script peut prendre quelques minutes avant de terminer.**
 
@@ -91,7 +100,7 @@ une fois le script est terminé, vous pouvez vérifier que les données ont bien
 +----------------------------------------------------------------------------+
 ```
 
-Les etapes de chargement des données sont expliquées en détail dans la section [Chargement des données](#partie-2--chargement-dans-neo4j)
+Les étapes de chargement des données sont expliquées en détail dans la section [Chargement des données](#partie-2--chargement-dans-neo4j)
 
 ## Partie 1 : Données
 
@@ -144,6 +153,8 @@ Donc pour contourner ce problème, on a fait des scripts python capable de lire 
 
 Donc les étapes pour charger les données sont les suivantes :
 
+*Si vous utiliser pas `cypther-shell` vous pouvez copier coller les contenus des fichiers cypher dans le navigateur de Neo4j dans [localhost:7474](http://localhost:7474) et les éxecuter.*
+
 ```bash
 python3 python/generate-cypher-bundles.py
 
@@ -183,7 +194,7 @@ Les recommondations proposées sont :
 
 1. Proposer des jeux à un utilisateur en fonction des genres des jeux qu'il possède. (naive)
 2. Proposer des jeux similaire à un jeu donné selon les genres. (index de jacard)
-3. Proposer des recommendations d'amis pour un utilisateur en fonction des jeux/genres qu'ils possèdent en commun. (Similarite de Cosinus)
+3. Proposer des utilisateurs similaires pour un utilisateur en fonction des jeux qu'ils possèdent en commun. (Similarite de Cosinus)
 4. Proposer des jeux à un utilisateur en fonction des jeux qui appartiennent aux utilisateurs similaires. (Similarite de Pearson)
 
 ### Recommandation 1 : Proposer des jeux à un utilisateur en fonction des genres des jeux qu'il possède
@@ -442,7 +453,7 @@ LIMIT 30;
 ## Pour liberer les ports, arrêter et supprimer le container lancé
 
 ```bash
-docker stop neo4j-container && docker rm neo4j-container
+sudo docker stop neo4j-container && sudo docker rm neo4j-container
 ```
 
 ## Références
