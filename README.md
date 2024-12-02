@@ -46,8 +46,7 @@ Lancez le script bash `init.sh` pour  télecharger les données et lancer le con
 **S'assurer que les ports 7474 et 7687 sont disponibles avant de lancer.**
 
 ```bash
-chmod +x init.sh
-sudo ./init.sh
+chmod +x init.sh && sudo ./init.sh
 ```
 
 Vérifier que le container est bien lancé en visitant [localhost:7474](http://localhost:7474).
@@ -75,15 +74,14 @@ wget -O - https://debian.neo4j.com/neotechnology.gpg.key | sudo apt-key add -
 echo 'deb https://debian.neo4j.com stable latest' | sudo tee -a /etc/apt/sources.list.d/neo4j.list;sudo add-apt-repository -y ppa:openjdk-r/ppa;
 sudo apt-get update;
 sudo apt-get install neo4j -y;
-``` 
+```
 
 La commande `cypher-shell` est importante pour pouvoir éxecuter le script bash fourni, mais n'est pas essentiel, dans le cas ou vous ne pouvez pas l'installer, Il faut executer les commandaes manuellelemnt et  copier coller les contenus des fichiers cypher dans le navigateur de Neo4j dans [localhost:7474](http://localhost:7474) et les éxecuter.
 
 **Le script peut prendre quelques minutes avant de terminer.**
 
 ```bash
-chmod +x populate.sh
-./populate.sh
+chmod +x populate.sh && sudo ./populate.sh
 ```
 
 une fois le script est terminé, vous pouvez vérifier que les données ont bien été charger si le tableau suivant est affiché dans le terminal.
@@ -454,6 +452,33 @@ LIMIT 30;
 
 ```bash
 sudo docker stop neo4j-container && sudo docker rm neo4j-container
+```
+
+*Voici la squelette du projet après l'éxecution des scripts bash*
+
+```bash
+projet-2
+├── README.md
+├── cypher
+│   ├── bundles.cypher
+│   ├── collaborative-filtering-game.cypher
+│   ├── collaborative-filtering-user.cypher
+│   ├── content-based-game.cypher
+│   ├── content-based-user.cypher
+│   ├── drop.cypher
+│   ├── recommendations.cypher
+│   └── steam_users.cypher
+├── data
+│   ├── australian_users_items.json
+│   ├── bundle_data.json
+│   └── reduced_users_items.json
+├── init.sh
+├── misc
+│   └── neo4j-browser.png
+├── populate.sh
+└── python
+    ├── generate-cypher-bundles.py
+    └── generate-cypher-users-items.py
 ```
 
 ## Références
